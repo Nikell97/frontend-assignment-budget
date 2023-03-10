@@ -22,11 +22,11 @@
             <button type="submit">Submit</button>
         </form>
 
-        <ul id="expenseList">
+        <ul class="expenseList">
             <!--Expenses go here-->
             <!--, expense, date, index-->
-            <li v-for="(category) in expenseList"> 
-                {{ category.text }} <!--{{ expense.text }} {{ date.text }}-->
+            <li v-for="(expense, index) in expenseList"> 
+                {{ expense.category }} {{ expense.expense }} {{ expense.date }}
                 <button type="button" @click="deleteExpense(index)">Delete</button>
             </li>
         </ul>
