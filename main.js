@@ -7,6 +7,7 @@ Vue.createApp({
             categoryText: "",
             amountText: "",
             dateText: "",
+
         }
     },
     methods: {
@@ -26,5 +27,17 @@ Vue.createApp({
             this.amountText = "";
             this.dateText = "";
         },
+        deleteExpense(index) {
+            this.expenseList.splice(index, 1);
+        },
+        sortByCategory() {
+            // Add sorting logic here
+        },
+        sortByExpense() {
+            // Add sorting logic here
+        },
+        sortByMonth() {
+            // Add sorting logic here
+        }
     }
 }).mount('#app');
