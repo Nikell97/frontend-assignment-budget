@@ -17,16 +17,15 @@
         
         <form id="input" @submit.prevent="addExpense">
             <input id="categoryInput" v-model="categoryText" placeholder="Enter category here">
-            <input id="expenseInput" v-model="expenseText" placeholder="Enter expense here">
+            <input id="amountInput" v-model="amountText" placeholder="Enter amount here">
             <input id="dateInput" v-model="dateText" placeholder="Enter date here">
             <button type="submit">Submit</button>
         </form>
 
         <ul id="expenseList">
             <!--Expenses go here-->
-            <!--, expense, date, index-->
-            <li v-for="(category) in expenseList"> 
-                {{ category.text }} <!--{{ expense.text }} {{ date.text }}-->
+            <li v-for="(expense, index) in expenseList" :key="index"> 
+                {{ expense.category }} {{ expense.amount }} {{ expense.date }}
                 <button type="button" @click="deleteExpense(index)">Delete</button>
             </li>
         </ul>
