@@ -62,6 +62,116 @@ Vue.createApp({
         },
         clearExpenseList() {
             this.expenseList.splice(0);
+        },
+        calcTotalExpense() {
+            for (let amount of this.expenseList){
+                let total = total + amount;
+            }
+        },
+        calcTotalExpenseByMonth() {
+            for (let expense of this.expenseList){
+                // creates an object/"dictionary" of all the months with a connected numerical value that starts at 0
+                const months = {
+                    'Jan' : 0,
+                    'Feb' : 0,
+                    'Mar' : 0,
+                    'Apr' : 0,
+                    'May' : 0,
+                    'Jun' : 0,
+                    'Jul' : 0,
+                    'Aug' : 0,
+                    'Sep' : 0,
+                    'Oct' : 0,
+                    'Nov' : 0,
+                    'Dec' : 0,
+                }
+                let jan = 0;
+                let feb = 0;
+                let mar = 0;
+                let apr = 0;
+                let may = 0;
+                let jun = 0;
+                let jul = 0;
+                let aug = 0;
+                let sep = 0;
+                let oct = 0;
+                let nov = 0;
+                let dec = 0;
+
+                let expenseDate = expense.date.split('-');
+                let expenseMonth = expenseDate[1];
+
+                if (expenseMonth === "01"){
+                    months.Jan += expense.amount;
+                }
+                else if (expenseMonth === "02"){
+                    months.Feb += expense.amount;
+                }
+                else if (expenseMonth === "03"){
+                    mar += expense.amount;
+                }
+                else if (expenseMonth === "04"){
+                    months.Apr += expense.amount;
+                }
+                else if (expenseMonth === "05"){
+                    months.May += expense.amount;
+                }
+                else if (expenseMonth === "06"){
+                    months.Jun += expense.amount;
+                }
+                else if (expenseMonth === "07"){
+                    months.Jul += expense.amount;
+                }
+                else if (expenseMonth === "08"){
+                    months.Aug += expense.amount;
+                }
+                else if (expenseMonth === "09"){
+                    months.Sep += expense.amount;
+                }
+                else if (expenseMonth === "10"){
+                    months.Oct += expense.amount;
+                }
+                else if (expenseMonth === "11"){
+                    months.Nov += expense.amount;
+                }
+                else if (expenseMonth === "12"){
+                    months.Dec += expense.amount;
+                }
+            }
         }
     }
 }).mount('#app');
+
+/*
+function drawGraph(){
+    const w = 200;
+    const h = 200;
+    const svg = createSvg(w, h);
+
+    const background = createSvgRect(0, 0, w, h);
+    background.style.fill = black;
+    svg.append(background);
+
+    const vertical = createSvgRect(w * (5 / 16), 0, w * (2/ 16), h)
+}
+
+function createSvg(width, height) {
+    const svg = createSvgElement('svg');
+    svg.setAttribute('width', width);
+    svg.setAttribute('height', height);
+    document.body.append(svg);
+    return svg;
+}
+
+function createSvgElement(tagName) {
+    return document.createElementNS('http://www.w3.org/2000/svg', tagName);
+}
+
+function createSvgRect(x, y, width, height) {
+    const rect = createSvgElement('rect');
+    rect.setAttribute('width', width);
+    rect.setAttribute('height', height);
+    rect.setAttribute('x', x);
+    rect.setAttribute('y', y);
+    return rect;
+}*/
