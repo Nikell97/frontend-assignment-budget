@@ -7,16 +7,18 @@ Vue.createApp({
             categoryText: "",
             amountText: "",
             dateText: "",
-
+            showEmptyFieldsPopup: false
         }
     },
     methods: {
         // Enter all methods/functions here
         addExpense(){
             if (this.categoryText == "" || this.amountText == "" || this.dateText == "") {
+                this.showEmptyFieldsPopup = true;
                 return; // There has to be something in all input fields for an item to be created.
             }
-
+            this.showEmptyFieldsPopup = false;
+            
             let expenseObject = {
                 category: this.categoryText,
                 amount: this.amountText,

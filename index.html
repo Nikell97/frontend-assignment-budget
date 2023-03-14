@@ -14,11 +14,14 @@
         <!--Vue code inside mounted "app" div-->
         <h1>Budget Calculator</h1>
 
-        
+        <div id="emptyFieldsPopup" class="popup" :class="{ show: showEmptyFieldsPopup }">
+            *Input fields can't be empty.
+        </div>
+          
         <form id="input" @submit.prevent="addExpense">
-            <input id="categoryInput" v-model="categoryText" placeholder="Enter category here">
-            <input id="amountInput" v-model="amountText" placeholder="Enter amount here">
-            <input id="dateInput" v-model="dateText" placeholder="Enter date here (y-m-d)">
+            <input id="categoryInput" pattern="[A-Za-z]" v-model="categoryText" placeholder="Enter category here" title="Please enter letters only">
+            <input id="amountInput" pattern="[0-9]" v-model="amountText" placeholder="Enter amount here" title="Please enter numbers only">
+            <input id="dateInput" pattern="[0-9-]" v-model="dateText" placeholder="Enter date here (y-m-d)" title="Please enter numbers and hypens only">
             <button type="submit" id="inputSubmitButton">Submit</button>
         </form>
 
