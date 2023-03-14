@@ -13,10 +13,6 @@ Vue.createApp({
     methods: {
         // Enter all methods/functions here
         addExpense(){
-            if (!this.dateText) {
-                return; // exit early if dateText is undefined
-            }
-            
             let expenseObject = {
                 category: this.categoryText,
                 amount: this.amountText,
