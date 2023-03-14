@@ -6,7 +6,23 @@ ul {
     padding-left: 0px;
 }
 
+#input {
+    max-width: 500px;
+}
+
+#categoryInput, #amountInput, #dateInput {
+    width: 141px;
+}
+
+#inputSubmitButton {
+    width: 53px;
+    overflow: hidden;
+    float: right;
+    margin-left: auto;
+}
+
 .expenseList {
+    margin-top: 25px;
     max-width: 500px;
 }
 
@@ -16,11 +32,14 @@ ul {
 }
 
 .listItemCategory, .listItemAmount, .listItemDate {
-    width: 147.667px;
+    width: 149px;
 }
 
-.listItemDelete {
-    width: 52.9667px;
+.listItemDeleteButton {
+    width: 53px;
+    overflow: hidden;
+    float: right;
+    margin-left: auto;
 }
 
 .filters {
