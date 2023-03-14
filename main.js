@@ -13,6 +13,10 @@ Vue.createApp({
     methods: {
         // Enter all methods/functions here
         addExpense(){
+            if (this.categoryText == "" || this.amountText == "" || this.dateText == "") {
+                return; // There has to be something in all input fields for an item to be created.
+            }
+            
             let expenseObject = {
                 category: this.categoryText,
                 amount: this.amountText,
