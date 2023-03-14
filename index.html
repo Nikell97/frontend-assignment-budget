@@ -18,16 +18,17 @@
         <form id="input" @submit.prevent="addExpense">
             <input id="categoryInput" v-model="categoryText" placeholder="Enter category here">
             <input id="amountInput" v-model="amountText" placeholder="Enter amount here">
-            <input id="dateInput" v-model="dateText" placeholder="Enter date here">
+            <input id="dateInput" v-model="dateText" placeholder="Enter date here (y-m-d)">
             <button type="submit">Submit</button>
         </form>
 
         <ul class="expenseList">
             <!--Expenses go here-->
-            <li v-for="(expense, index) in expenseList" :key="index"> 
-                {{ expense.category }} {{ expense.amount }} {{ expense.date }}
-
-                <button type="button" @click="deleteExpense(index)">Delete</button>
+            <li v-for="(expense, index) in expenseList" :key="index" class="expenseListItem"> 
+                <div class="listItemCategory">{{ expense.category }}</div>
+                <div class="listItemAmount">{{ expense.amount }}</div>
+                <div class="listItemDate">{{ expense.date }}</div>
+                <button type="button" @click="deleteExpense(index)" class="listItemDelete">Delete</button>
             </li>
         </ul>
 

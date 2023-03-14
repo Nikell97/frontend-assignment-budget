@@ -1,0 +1,29 @@
+li {
+    list-style: none;
+}
+
+ul {
+    padding-left: 0px;
+}
+
+.expenseList {
+    max-width: 500px;
+}
+
+.expenseListItem {
+    display: flex;
+    align-items: center;
+}
+
+.listItemCategory, .listItemAmount, .listItemDate {
+    width: 147.667px;
+}
+
+.listItemDelete {
+    width: 52.9667px;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+}
