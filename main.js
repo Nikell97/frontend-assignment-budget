@@ -3,7 +3,7 @@ Vue.createApp({
         return {
             // Enter data here
             activeTab: "category",
-            expenseList: [ {category: "1", amount: "1", date: "1"}],
+            expenseList: [],
             categoryText: "",
             amountText: "",
             dateText: "",
@@ -28,19 +28,21 @@ Vue.createApp({
             this.categoryText = "";
             this.amountText = "";
             this.dateText = "";
+
+            this.sortHandler();
         },
         deleteExpense(index) {
             this.expenseList.splice(index, 1);
         },
         sortHandler() {
             if (this.activeTab == "category"){
-                sortByCategory();
+                this.sortByCategory();
             }
             else if (this.activeTab == "amount"){
-                sortByAmount();
+                this.sortByAmount();
             }
             else {
-                sortByMonth();
+                this.sortByMonth();
             }
         },
         sortByCategory() {

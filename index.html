@@ -22,7 +22,7 @@
             <input id="categoryInput" pattern="[A-Za-z]" v-model="categoryText" placeholder="Enter category here" title="Please enter letters only">
             <input id="amountInput" pattern="\d+" v-model="amountText" placeholder="Enter amount here" title="Please enter numbers only">
             <input id="dateInput" pattern="\b\d{4}-\b\d{2}-\b\d{2}" v-model="dateText" placeholder="Enter date here (y-m-d)" title="Please enter numbers and hypens only">
-            <button type="submit" id="inputSubmitButton" @click="sortHandler">Submit</button>
+            <button type="submit" id="inputSubmitButton">Submit</button>
         </form>
 
         <ul class="expenseList">
