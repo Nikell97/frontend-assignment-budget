@@ -3,7 +3,7 @@ Vue.createApp({
         return {
             // Enter data here
             activeTab: "month",
-            expenseList: [],
+            expenseList: [ {category: "1", amount: "1", date: "1"}],
             categoryText: "",
             amountText: "",
             dateText: "",
@@ -16,7 +16,7 @@ Vue.createApp({
             if (this.categoryText == "" || this.amountText == "" || this.dateText == "") {
                 return; // There has to be something in all input fields for an item to be created.
             }
-            
+
             let expenseObject = {
                 category: this.categoryText,
                 amount: this.amountText,
@@ -38,6 +38,9 @@ Vue.createApp({
         },
         sortByMonth() {
             // Add sorting logic here
+        },
+        clearExpenseList() {
+            this.expenseList.splice(0);
         }
     }
 }).mount('#app');

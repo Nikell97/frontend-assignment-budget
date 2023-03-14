@@ -28,19 +28,24 @@
                 <div class="listItemCategory">{{ expense.category }}</div>
                 <div class="listItemAmount">{{ expense.amount }}</div>
                 <div class="listItemDate">{{ expense.date }}</div>
-                <button type="button" @click="deleteExpense(index)" class="listItemDeleteButton">Delete</button>
+                <div class="listItemDelete">
+                    <button type="button" @click="deleteExpense(index)" class="listItemDeleteButton">❌</button>
+                </div>
             </li>
         </ul>
 
         <ul class="filters">
-            <li>
-                <button type="button" @click="sortByCategory">Category</button>
+            <li class="sortByCategory">
+                <button type="button" @click="sortByCategory" class="sortByCategoryButton">Category</button>
             </li>
-            <li>
-                <button type="button" @click="sortByExpense">Expenses</button>
+            <li class="sortByExpense">
+                <button type="button" @click="sortByExpense" class="sortByExpenseButton">Expenses</button>
             </li>
-            <li>
-                <button type="button" @click="sortByMonth">Month</button>
+            <li class="sortByMonth">
+                <button type="button" @click="sortByMonth" class="sortByMonthButton">Month</button>
+            </li>
+            <li class="clearExpenseList">
+                <button type="button" @click="clearExpenseList" class="clearExpenseListButton">Clear</button>
             </li>
         </ul>
         

@@ -12,17 +12,21 @@ ul {
 
 #categoryInput, #amountInput, #dateInput {
     width: 141px;
+
+    border-radius: 0px;
 }
 
 #inputSubmitButton {
     width: 53px;
-    overflow: hidden;
-    float: right;
-    margin-left: auto;
+
+    border-radius: 0px;
+
+    cursor: pointer;
 }
 
 .expenseList {
-    margin-top: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     max-width: 500px;
 }
 
@@ -32,17 +36,71 @@ ul {
 }
 
 .listItemCategory, .listItemAmount, .listItemDate {
-    width: 149px;
+    width: 148px;
+
+    border-left: 0px;
+    border-top: 1px;
+    border-bottom: 1px;
+    border-right: 1px;
+
+    border-color: grey;
+    border-style: solid;
+}
+.listItemCategory{
+    border-left: 1px;
+
+    border-color: grey;
+    border-style: solid;
 }
 
+.listItemDelete {
+    border-left: 0px;
+    border-top: 1px;
+    border-bottom: 1px;
+    border-right: 1px;
+
+    border-color: grey;
+    border-style: solid;
+}
 .listItemDeleteButton {
-    width: 53px;
-    overflow: hidden;
-    float: right;
-    margin-left: auto;
+    width: 51px;
+    height: 19px;
+
+    padding: 0px;
+    border: 0px;
+    opacity: 50%;
+
+    background-color: transparent;
+}
+.listItemDeleteButton:hover {
+    opacity: 100%;
+
+    cursor: pointer;
 }
 
 .filters {
+    max-width: 500px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+
     display: flex;
     align-items: center;
+}
+
+.sortByCategory, .sortByExpense, .sortByMonth {
+    width: 149px;
+}
+
+.sortByCategoryButton, .sortByExpenseButton, .sortByMonthButton {
+    width: 149px;
+    border-radius: 0px;
+}
+
+.clearExpenseListButton {
+    width: 53px;
+    border-radius: 0px;
+}
+
+.sortByCategoryButton:hover, .sortByExpenseButton:hover, .sortByMonthButton:hover, .clearExpenseListButton:hover {
+    cursor: pointer;
 }
