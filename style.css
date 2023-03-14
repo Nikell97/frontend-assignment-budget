@@ -87,11 +87,11 @@ ul {
     align-items: center;
 }
 
-.sortByCategory, .sortByExpense, .sortByMonth {
+.sortByCategory, .sortByAmount, .sortByMonth {
     width: 149px;
 }
 
-.sortByCategoryButton, .sortByExpenseButton, .sortByMonthButton {
+.sortByCategoryButton, .sortByAmountButton, .sortByMonthButton {
     width: 149px;
     border-radius: 0px;
 }
@@ -101,6 +101,6 @@ ul {
     border-radius: 0px;
 }
 
-.sortByCategoryButton:hover, .sortByExpenseButton:hover, .sortByMonthButton:hover, .clearExpenseListButton:hover {
+.sortByCategoryButton:hover, .sortByAmountButton:hover, .sortByMonthButton:hover, .clearExpenseListButton:hover {
     cursor: pointer;
 }

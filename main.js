@@ -30,10 +30,26 @@ Vue.createApp({
         deleteExpense(index) {
             this.expenseList.splice(index, 1);
         },
+        updateActiveTab(tab){
+            this.activeTab = tab;
+        },
+        sortHandler() {
+            if (this.activeTab === "category"){
+                sortByCategory();
+            }
+            else if (this.activeTab === "amount"){
+                sortByAmount();
+            }
+            else {
+                sortByMonth();
+            }
+        },
         sortByCategory() {
             // Add sorting logic here
+            this.expenseList.sort((e1, e2) => e1.category > e2.category ? 1 : -1);
+            this.activeTab = "category";
         },
-        sortByExpense() {
+        sortByAmount() {
             // Add sorting logic here
         },
         sortByMonth() {

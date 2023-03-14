@@ -19,7 +19,7 @@
             <input id="categoryInput" v-model="categoryText" placeholder="Enter category here">
             <input id="amountInput" v-model="amountText" placeholder="Enter amount here">
             <input id="dateInput" v-model="dateText" placeholder="Enter date here (y-m-d)">
-            <button type="submit" id="inputSubmitButton">Submit</button>
+            <button type="submit" id="inputSubmitButton" @click="sortHandler">Submit</button>
         </form>
 
         <ul class="expenseList">
@@ -38,8 +38,8 @@
             <li class="sortByCategory">
                 <button type="button" @click="sortByCategory" class="sortByCategoryButton">Category</button>
             </li>
-            <li class="sortByExpense">
-                <button type="button" @click="sortByExpense" class="sortByExpenseButton">Expenses</button>
+            <li class="sortByAmount">
+                <button type="button" @click="sortByAmount" class="sortByAmountButton">Expenses</button>
             </li>
             <li class="sortByMonth">
                 <button type="button" @click="sortByMonth" class="sortByMonthButton">Month</button>
