@@ -2,7 +2,7 @@ Vue.createApp({
     data() {
         return {
             // Enter data here
-            activeTab: "month",
+            activeTab: "category",
             expenseList: [ {category: "1", amount: "1", date: "1"}],
             categoryText: "",
             amountText: "",
@@ -18,7 +18,7 @@ Vue.createApp({
                 return; // There has to be something in all input fields for an item to be created.
             }
             this.showEmptyFieldsPopup = false;
-            
+
             let expenseObject = {
                 category: this.categoryText,
                 amount: this.amountText,
@@ -32,14 +32,11 @@ Vue.createApp({
         deleteExpense(index) {
             this.expenseList.splice(index, 1);
         },
-        updateActiveTab(tab){
-            this.activeTab = tab;
-        },
         sortHandler() {
-            if (this.activeTab === "category"){
+            if (this.activeTab == "category"){
                 sortByCategory();
             }
-            else if (this.activeTab === "amount"){
+            else if (this.activeTab == "amount"){
                 sortByAmount();
             }
             else {
@@ -53,9 +50,11 @@ Vue.createApp({
         },
         sortByAmount() {
             // Add sorting logic here
+            this.activeTab = "amount";
         },
         sortByMonth() {
             // Add sorting logic here
+            this.activeTab = "month";
         },
         clearExpenseList() {
             this.expenseList.splice(0);
