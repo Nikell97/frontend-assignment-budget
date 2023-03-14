@@ -52,10 +52,12 @@ Vue.createApp({
         },
         sortByAmount() {
             // Add sorting logic here
+            this.expenseList.sort((e1, e2) => e1.amount < e2.amount ? 1 : -1);
             this.activeTab = "amount";
         },
         sortByMonth() {
             // Add sorting logic here
+            this.expenseList.sort((e1, e2) => e1.date < e2.date ? 1 : -1);
             this.activeTab = "month";
         },
         clearExpenseList() {
