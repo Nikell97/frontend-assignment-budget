@@ -11,18 +11,18 @@ Vue.createApp({
             showEmptyFieldsPopup: false,
 
             monthList: [
-                { name: "Jan", amount: 0 },
-                { name: "Feb", amount: 0 },
-                { name: "Mar", amount: 0 },
-                { name: "Apr", amount: 0 },
-                { name: "May", amount: 0 },
-                { name: "Jun", amount: 0 },
-                { name: "Jul", amount: 0 },
-                { name: "Aug", amount: 0 },
-                { name: "Sep", amount: 0 },
-                { name: "Oct", amount: 0 },
-                { name: "Nov", amount: 0 },
-                { name: "Dec", amount: 0 }
+                { name: "Jan", amount: 0, textAmountPos: 14, },
+                { name: "Feb", amount: 0, textAmountPos: 0, },
+                { name: "Mar", amount: 0, textAmountPos: 14, },
+                { name: "Apr", amount: 0, textAmountPos: 0, },
+                { name: "May", amount: 0, textAmountPos: 14, },
+                { name: "Jun", amount: 0, textAmountPos: 0, },
+                { name: "Jul", amount: 0, textAmountPos: 14, },
+                { name: "Aug", amount: 0, textAmountPos: 0, },
+                { name: "Sep", amount: 0, textAmountPos: 14, },
+                { name: "Oct", amount: 0, textAmountPos: 0, },
+                { name: "Nov", amount: 0, textAmountPos: 14, },
+                { name: "Dec", amount: 0, textAmountPos: 0, }
             ],
         }
     },
@@ -33,6 +33,50 @@ Vue.createApp({
             } catch (e) {
                 localStorage.deleteExpense('savedList');
             }
+
+            for (let expense of this.expenseList) {
+                let expenseDate = expense.date.split('-'); // splits date string at - and puts the values in an array
+                let expenseMonth = expenseDate[1]; // fetches value of second index, which is the month, based on the required date input format
+                let parsedAmount = parseFloat(expense.amount); // have to parse expense.amount otherwise later use of += will concat instead of add
+    
+                if (expenseMonth === "01") {
+                    this.monthList[0].amount += parsedAmount;
+                }
+                else if (expenseMonth === "02") {
+                    this.monthList[1].amount += parsedAmount;
+                }
+                else if (expenseMonth === "03") {
+                    this.monthList[2].amount += parsedAmount;
+                }
+                else if (expenseMonth === "04") {
+                    this.monthList[3].amount += parsedAmount;
+                }
+                else if (expenseMonth === "05") {
+                    this.monthList[4].amount += parsedAmount;
+                }
+                else if (expenseMonth === "06") {
+                    this.monthList[5].amount += parsedAmount;
+                }
+                else if (expenseMonth === "07") {
+                    this.monthList[6].amount += parsedAmount;
+                }
+                else if (expenseMonth === "08") {
+                    this.monthList[7].amount += parsedAmount;
+                }
+                else if (expenseMonth === "09") {
+                    this.monthList[8].amount += parsedAmount;
+                }
+                else if (expenseMonth === "10") {
+                    this.monthList[9].amount += parsedAmount;
+                }
+                else if (expenseMonth === "11") {
+                    this.monthList[10].amount += parsedAmount;
+                }
+                else if (expenseMonth === "12") {
+                    this.monthList[11].amount += parsedAmount;
+                }
+            }
+            this.sortHandler();
         }
     },
     methods: {
@@ -63,6 +107,11 @@ Vue.createApp({
             this.monthDiagram();
         },
         deleteExpense(index) {
+            // This updates the diagram when a expense is deleted.
+            let date = this.expenseList[index].date.split("-");
+            let monthIndex = parseInt(date[1]-1);
+            this.monthList[monthIndex].amount -= (this.expenseList[index].amount);
+
             this.expenseList.splice(index, 1);
             this.saveInLocal();
         },
@@ -149,7 +198,6 @@ Vue.createApp({
             else if (expenseMonth === "12") {
                 this.monthList[11].amount += parsedAmount;
             }
-
         }
     }
 }).mount('#app');

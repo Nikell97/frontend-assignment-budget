@@ -22,7 +22,7 @@
             </div>
 
             <form id="input" @submit.prevent="addExpense">
-                <input id="categoryInput" pattern="[A-Za-z]" v-model="categoryText" placeholder="Enter category here"
+                <input id="categoryInput" pattern="[A-Za-z]+" v-model="categoryText" placeholder="Enter category here"
                     title="Please enter letters only">
                 <input id="amountInput" pattern="\d+" v-model="amountText" placeholder="Enter amount here"
                     title="Please enter numbers only">
@@ -35,7 +35,7 @@
                 <!--Expenses go here-->
                 <li v-for="(expense, index) in expenseList" :key="index" class="expenseListItem">
                     <div class="listItemCategory">{{ expense.category }}</div>
-                    <div class="listItemAmount">{{ expense.amount }}</div>
+                    <div class="listItemAmount">{{ expense.amount }}kr</div>
                     <div class="listItemDate">{{ expense.date }}</div>
                     <div class="listItemDelete">
                         <button type="button" @click="deleteExpense(index)" class="listItemDeleteButton">❌</button>
@@ -58,14 +58,15 @@
             </li>
         </ul>
 
-        <p id="TotalExpenses"> Total Expense: {{ calcTotalExpense() }} </p>
+        <p id="TotalExpenses"> Total Expense: {{ calcTotalExpense() }}kr</p>
 
         </div>
         <div>
-            <svg><!--498px X 248px average space would be 41.5px-->
+            <svg><!--498px X 348px average space would be 41.5px-->
                 <g v-for="(month, index) in monthList" :key="index">
-                    <rect :x="5 + index * 41.5" :y="248 - month.amount / 100" width="30" :height="month.amount / 100"/>
-                    <text :x="8 + index * 41.5" :y="238 - month.amount / 100">{{ month.name }}</text>
+                    <rect :x="5 + index * 41.5" :y="318 - month.amount / 100" width="30" :height="month.amount / 100"/>
+                    <text :x="8 + index * 41.5" :y="308 - month.amount / 100">{{ month.name }}</text>
+                    <text :x="index * 41.5" :y="345 - month.textAmountPos">{{ month.amount }}</text>
                 </g>
             </svg>
         </div>
