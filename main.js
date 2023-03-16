@@ -8,6 +8,7 @@ Vue.createApp({
             amountText: "",
             dateText: "",
             showEmptyFieldsPopup: false
+            
         }
     },
     methods: {
@@ -64,81 +65,73 @@ Vue.createApp({
             this.expenseList.splice(0);
         },
         calcTotalExpense() {
-            for (let amount of this.expenseList){
-                let total = total + amount;
+            let total = 0;
+            for (let expense of this.expenseList){
+                let parsedAmount = parseInt(expense.amount);
+                total += parsedAmount;
             }
+            return total;
         },
         calcTotalExpenseByMonth() {
-            for (let expense of this.expenseList){
-                // creates an object/"dictionary" of all the months with a connected numerical value that starts at 0
-                const months = {
-                    'Jan' : 0,
-                    'Feb' : 0,
-                    'Mar' : 0,
-                    'Apr' : 0,
-                    'May' : 0,
-                    'Jun' : 0,
-                    'Jul' : 0,
-                    'Aug' : 0,
-                    'Sep' : 0,
-                    'Oct' : 0,
-                    'Nov' : 0,
-                    'Dec' : 0,
-                }
-                let jan = 0;
-                let feb = 0;
-                let mar = 0;
-                let apr = 0;
-                let may = 0;
-                let jun = 0;
-                let jul = 0;
-                let aug = 0;
-                let sep = 0;
-                let oct = 0;
-                let nov = 0;
-                let dec = 0;
+            // creates an object/"dictionary" of all the months with a connected numerical value that starts at 0
+            const months = {
+                'Jan' : 0,
+                'Feb' : 0,
+                'Mar' : 0,
+                'Apr' : 0,
+                'May' : 0,
+                'Jun' : 0,
+                'Jul' : 0,
+                'Aug' : 0,
+                'Sep' : 0,
+                'Oct' : 0,
+                'Nov' : 0,
+                'Dec' : 0,
+            }
 
-                let expenseDate = expense.date.split('-');
-                let expenseMonth = expenseDate[1];
+            for (let expense of this.expenseList){
+                let expenseDate = expense.date.split('-'); // splits date string at - and puts the values in an array
+                let expenseMonth = expenseDate[1]; // fetches value of second index, which is the month, based on the required date input format
+                let parsedAmount = parseInt(expense.amount); // have to parse expense.amount otherwise later use of += will concat instead of add
 
                 if (expenseMonth === "01"){
-                    months.Jan += expense.amount;
+                    months.Jan += parsedAmount;
                 }
                 else if (expenseMonth === "02"){
-                    months.Feb += expense.amount;
+                    months.Feb += parsedAmount;
                 }
                 else if (expenseMonth === "03"){
-                    mar += expense.amount;
+                    months.Mar += parsedAmount;
                 }
                 else if (expenseMonth === "04"){
-                    months.Apr += expense.amount;
+                    months.Apr += parsedAmount;
                 }
                 else if (expenseMonth === "05"){
-                    months.May += expense.amount;
+                    months.May += parsedAmount;
                 }
                 else if (expenseMonth === "06"){
-                    months.Jun += expense.amount;
+                    months.Jun += parsedAmount;
                 }
                 else if (expenseMonth === "07"){
-                    months.Jul += expense.amount;
+                    months.Jul += parsedAmount;
                 }
                 else if (expenseMonth === "08"){
-                    months.Aug += expense.amount;
+                    months.Aug += parsedAmount;
                 }
                 else if (expenseMonth === "09"){
-                    months.Sep += expense.amount;
+                    months.Sep += parsedAmount;
                 }
                 else if (expenseMonth === "10"){
-                    months.Oct += expense.amount;
+                    months.Oct += parsedAmount;
                 }
                 else if (expenseMonth === "11"){
-                    months.Nov += expense.amount;
+                    months.Nov += parsedAmount;
                 }
                 else if (expenseMonth === "12"){
-                    months.Dec += expense.amount;
+                    months.Dec += parsedAmount;
                 }
             }
-        }
+        },
     }
 }).mount('#app');
 
