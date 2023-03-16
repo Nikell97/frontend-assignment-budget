@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,33 +10,38 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="main.js" defer></script>
 </head>
+
 <body>
     <div id="app">
-        <!--Vue code inside mounted "app" div-->
-        <h1>Budget Calculator</h1>
+        <div>
+            <!--Vue code inside mounted "app" div-->
+            <h1>Budget Calculator</h1>
 
-        <div id="emptyFieldsPopup" class="popup" :class="{ show: showEmptyFieldsPopup }">
-            *Input fields can't be empty.
-        </div>
-          
-        <form id="input" @submit.prevent="addExpense">
-            <input id="categoryInput" pattern="[A-Za-z]" v-model="categoryText" placeholder="Enter category here" title="Please enter letters only">
-            <input id="amountInput" pattern="\d+" v-model="amountText" placeholder="Enter amount here" title="Please enter numbers only">
-            <input id="dateInput" pattern="\b\d{4}-\b\d{2}-\b\d{2}" v-model="dateText" placeholder="Enter date here (y-m-d)" title="Please enter numbers and hypens only">
-            <button type="submit" id="inputSubmitButton">Submit</button>
-        </form>
+            <div id="emptyFieldsPopup" class="popup" :class="{ show: showEmptyFieldsPopup }">
+                *Input fields can't be empty.
+            </div>
 
-        <ul class="expenseList">
-            <!--Expenses go here-->
-            <li v-for="(expense, index) in expenseList" :key="index" class="expenseListItem"> 
-                <div class="listItemCategory">{{ expense.category }}</div>
-                <div class="listItemAmount">{{ expense.amount }}</div>
-                <div class="listItemDate">{{ expense.date }}</div>
-                <div class="listItemDelete">
-                    <button type="button" @click="deleteExpense(index)" class="listItemDeleteButton">❌</button>
-                </div>
-            </li>
-        </ul>
+            <form id="input" @submit.prevent="addExpense">
+                <input id="categoryInput" pattern="[A-Za-z]" v-model="categoryText" placeholder="Enter category here"
+                    title="Please enter letters only">
+                <input id="amountInput" pattern="\d+" v-model="amountText" placeholder="Enter amount here"
+                    title="Please enter numbers only">
+                <input id="dateInput" pattern="\b\d{4}-\b\d{2}-\b\d{2}" v-model="dateText"
+                    placeholder="Enter date here (y-m-d)" title="Please enter numbers and hypens only">
+                <button type="submit" id="inputSubmitButton">Submit</button>
+            </form>
+
+            <ul class="expenseList">
+                <!--Expenses go here-->
+                <li v-for="(expense, index) in expenseList" :key="index" class="expenseListItem">
+                    <div class="listItemCategory">{{ expense.category }}</div>
+                    <div class="listItemAmount">{{ expense.amount }}</div>
+                    <div class="listItemDate">{{ expense.date }}</div>
+                    <div class="listItemDelete">
+                        <button type="button" @click="deleteExpense(index)" class="listItemDeleteButton">❌</button>
+                    </div>
+                </li>
+            </ul>
 
         <ul class="filters">
             <li class="sortByCategory">
@@ -54,8 +60,16 @@
 
         <p id="TotalExpenses"> Total Expense: {{ calcTotalExpense() }} </p>
 
-        <button type="button" @click="calcTotalExpenseByMonth">Calc</button>
-
+        </div>
+        <div>
+            <svg><!--498px X 248px average space would be 41.5px-->
+                <g v-for="(month, index) in monthList" :key="index">
+                    <rect :x="5 + index * 41.5" :y="248 - month.amount / 100" width="30" :height="month.amount / 100"/>
+                    <text :x="8 + index * 41.5" :y="238 - month.amount / 100">{{ month.name }}</text>
+                </g>
+            </svg>
+        </div>
     </div>
 </body>
+
 </html>
