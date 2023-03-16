@@ -11,8 +11,24 @@ Vue.createApp({
             
         }
     },
+    created() {
+        if (localStorage.getItem('savedList')) {
+            try {
+                this.expenseList = JSON.parse(localStorage.getItem('savedList'));
+            } catch (e) {
+                localStorage.deleteExpense('savedList');
+            }
+        }
+    },
     methods: {
         // Enter all methods/functions here
+        saveInLocal() {
+            const parsedList = JSON.stringify(this.expenseList);
+            localStorage.setItem('savedList', parsedList)
+        },
+        getFromLocal() {
+            
+        },
         addExpense(){
             if (this.categoryText == "" || this.amountText == "" || this.dateText == "") {
                 this.showEmptyFieldsPopup = true;
@@ -26,6 +42,7 @@ Vue.createApp({
                 date: this.dateText
             };
             this.expenseList.push(expenseObject);
+            this.saveInLocal();
             this.categoryText = "";
             this.amountText = "";
             this.dateText = "";
@@ -34,6 +51,7 @@ Vue.createApp({
         },
         deleteExpense(index) {
             this.expenseList.splice(index, 1);
+            this.saveInLocal();
         },
         sortHandler() {
             if (this.activeTab == "category"){
