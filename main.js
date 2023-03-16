@@ -38,43 +38,8 @@ Vue.createApp({
                 let expenseDate = expense.date.split('-'); // splits date string at - and puts the values in an array
                 let expenseMonth = expenseDate[1]; // fetches value of second index, which is the month, based on the required date input format
                 let parsedAmount = parseFloat(expense.amount); // have to parse expense.amount otherwise later use of += will concat instead of add
-    
-                if (expenseMonth === "01") {
-                    this.monthList[0].amount += parsedAmount;
-                }
-                else if (expenseMonth === "02") {
-                    this.monthList[1].amount += parsedAmount;
-                }
-                else if (expenseMonth === "03") {
-                    this.monthList[2].amount += parsedAmount;
-                }
-                else if (expenseMonth === "04") {
-                    this.monthList[3].amount += parsedAmount;
-                }
-                else if (expenseMonth === "05") {
-                    this.monthList[4].amount += parsedAmount;
-                }
-                else if (expenseMonth === "06") {
-                    this.monthList[5].amount += parsedAmount;
-                }
-                else if (expenseMonth === "07") {
-                    this.monthList[6].amount += parsedAmount;
-                }
-                else if (expenseMonth === "08") {
-                    this.monthList[7].amount += parsedAmount;
-                }
-                else if (expenseMonth === "09") {
-                    this.monthList[8].amount += parsedAmount;
-                }
-                else if (expenseMonth === "10") {
-                    this.monthList[9].amount += parsedAmount;
-                }
-                else if (expenseMonth === "11") {
-                    this.monthList[10].amount += parsedAmount;
-                }
-                else if (expenseMonth === "12") {
-                    this.monthList[11].amount += parsedAmount;
-                }
+                
+                this.updateDiagram(expenseMonth, parsedAmount)
             }
             this.sortHandler();
         }
@@ -142,7 +107,11 @@ Vue.createApp({
             this.activeTab = "month";
         },
         clearExpenseList() {
+            for (let i = 0; i < this.monthList.length; i++) {
+                this.monthList[i].amount = 0;
+            }
             this.expenseList.splice(0);
+            this.saveInLocal();
         },
         calcTotalExpense() {
             let total = 0;
@@ -162,6 +131,9 @@ Vue.createApp({
             let expenseMonth = expenseDate[1]; // fetches value of second index, which is the month, based on the required date input format
             let parsedAmount = parseFloat(this.expenseList[last].amount); // have to parse expense.amount otherwise later use of += will concat instead of add
 
+            this.updateDiagram(expenseMonth, parsedAmount)
+        },
+        updateDiagram(expenseMonth, parsedAmount) {
             if (expenseMonth === "01") {
                 this.monthList[0].amount += parsedAmount;
             }
@@ -198,6 +170,6 @@ Vue.createApp({
             else if (expenseMonth === "12") {
                 this.monthList[11].amount += parsedAmount;
             }
-        }
+        },
     }
 }).mount('#app');
