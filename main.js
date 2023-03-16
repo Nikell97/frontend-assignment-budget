@@ -3,6 +3,7 @@ Vue.createApp({
         return {
             // Enter data here
             activeTab: "category",
+            currentYearListIndex: 0,
 
             expenseList: [],
             categoryText: "",
@@ -25,7 +26,21 @@ Vue.createApp({
                 { name: "Dec", amount: 0, textAmountPos: 0, }
             ],
 
-            yearList: []
+            yearList: [ 
+                {year: "All", monthList: [
+                { name: "Jan", amount: 0, textAmountPos: 14, },
+                { name: "Feb", amount: 0, textAmountPos: 0, },
+                { name: "Mar", amount: 0, textAmountPos: 14, },
+                { name: "Apr", amount: 0, textAmountPos: 0, },
+                { name: "May", amount: 0, textAmountPos: 14, },
+                { name: "Jun", amount: 0, textAmountPos: 0, },
+                { name: "Jul", amount: 0, textAmountPos: 14, },
+                { name: "Aug", amount: 0, textAmountPos: 0, },
+                { name: "Sep", amount: 0, textAmountPos: 14, },
+                { name: "Oct", amount: 0, textAmountPos: 0, },
+                { name: "Nov", amount: 0, textAmountPos: 14, },
+                { name: "Dec", amount: 0, textAmountPos: 0, }
+            ]}],
         }
     },
     created() {
@@ -41,10 +56,11 @@ Vue.createApp({
                 let expenseDate = expense.date.split('-'); // splits date string at - and puts the values in an array
                 let expenseMonth = expenseDate[1]; // fetches value of second index, which is the month, based on the required date input format
                 let parsedAmount = parseFloat(expense.amount); // have to parse expense.amount otherwise later use of += will concat instead of add
-                
-                this.updateDiagram(expenseMonth, parsedAmount)
+
+                this.updateDiagram(expenseMonth, parsedAmount, this.currentYearListIndex)
             }
             this.sortHandler();
+            this.findYears();
         }
     },
     methods: {
@@ -151,6 +167,10 @@ Vue.createApp({
                 }
             }
         },
+        currentYearListChange(event) {
+            this.currentYearListIndex = event.target.selectedIndex;
+            this.updateDiagram(0, 0, this.currentYearListIndex);
+        },
         monthDiagram() {
             let last = 0; // This exsist so that we can get the last object in the list.
             for (let i = 1; i < this.expenseList.length; i++) {
@@ -160,45 +180,47 @@ Vue.createApp({
             let expenseDate = this.expenseList[last].date.split('-'); // splits date string at - and puts the values in an array
             let expenseMonth = expenseDate[1]; // fetches value of second index, which is the month, based on the required date input format
             let parsedAmount = parseFloat(this.expenseList[last].amount); // have to parse expense.amount otherwise later use of += will concat instead of add
-
-            this.updateDiagram(expenseMonth, parsedAmount)
+            
+            this.updateDiagram(expenseMonth, parsedAmount, this.currentYearListIndex)
         },
-        updateDiagram(expenseMonth, parsedAmount) {
+        updateDiagram(expenseMonth, parsedAmount, yearListIndex) {
+            // When switching tabs, the current shown diagram is differant. But the "amount" does not get put on the right year. Should be put in "All" and their own respectiv year.
+            // Also... the diagram does not work. Y is now NaN for some reason. Worked before.
             if (expenseMonth === "01") {
-                this.monthList[0].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[0].amount += parsedAmount;
             }
             else if (expenseMonth === "02") {
-                this.monthList[1].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[1].amount += parsedAmount;
             }
             else if (expenseMonth === "03") {
-                this.monthList[2].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[2].amount += parsedAmount;
             }
             else if (expenseMonth === "04") {
-                this.monthList[3].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[3].amount += parsedAmount;
             }
             else if (expenseMonth === "05") {
-                this.monthList[4].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[4].amount += parsedAmount;
             }
             else if (expenseMonth === "06") {
-                this.monthList[5].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[5].amount += parsedAmount;
             }
             else if (expenseMonth === "07") {
-                this.monthList[6].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[6].amount += parsedAmount;
             }
             else if (expenseMonth === "08") {
-                this.monthList[7].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[7].amount += parsedAmount;
             }
             else if (expenseMonth === "09") {
-                this.monthList[8].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[8].amount += parsedAmount;
             }
             else if (expenseMonth === "10") {
-                this.monthList[9].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[9].amount += parsedAmount;
             }
             else if (expenseMonth === "11") {
-                this.monthList[10].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[10].amount += parsedAmount;
             }
             else if (expenseMonth === "12") {
-                this.monthList[11].amount += parsedAmount;
+                this.yearList[yearListIndex].monthList[11].amount += parsedAmount;
             }
         },
     }

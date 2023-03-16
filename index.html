@@ -59,17 +59,17 @@
         </ul>
 
         <p id="TotalExpenses"> Total Expense: {{ calcTotalExpense() }}kr</p>
-        <select id="yearDropDown">
+        <select id="yearDropDown" @change="currentYearListChange($event)">
             <option v-for="(year, index) in yearList" :key="index">{{ year.year }}</option> 
         </select> 
 
         </div>
         <div>
             <svg><!--498px X 348px average space would be 41.5px-->
-                <g v-for="(month, index) in monthList" :key="index">
-                    <rect :x="5 + index * 41.5" :y="318 - month.amount / 100" width="30" :height="month.amount / 100"/>
-                    <text :x="8 + index * 41.5" :y="308 - month.amount / 100">{{ month.name }}</text>
-                    <text :x="index * 41.5" :y="345 - month.textAmountPos">{{ month.amount }}</text>
+                <g v-for="(year, index) in yearList" :key="index">
+                    <rect :x="5 + index * 41.5" :y="318 - year.monthList.amount / 100" width="30" :height="year.monthList.amount / 100"/>
+                    <text :x="8 + index * 41.5" :y="308 - year.monthList.amount / 100">{{ year.monthList.name }}</text>
+                    <text :x="index * 41.5" :y="345 - year.monthList.textAmountPos">{{ year.monthList.amount }}</text>
                 </g>
             </svg>
         </div>
