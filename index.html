@@ -59,6 +59,9 @@
         </ul>
 
         <p id="TotalExpenses"> Total Expense: {{ calcTotalExpense() }}kr</p>
+        <select id="yearDropDown">
+            <option v-for="(year, index) in yearList" :key="index">{{ year.year }}</option> 
+        </select> 
 
         </div>
         <div>

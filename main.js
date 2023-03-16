@@ -24,10 +24,13 @@ Vue.createApp({
                 { name: "Nov", amount: 0, textAmountPos: 14, },
                 { name: "Dec", amount: 0, textAmountPos: 0, }
             ],
+
+            yearList: []
         }
     },
     created() {
         if (localStorage.getItem('savedList')) {
+            // checks for errors, which would indicate corrupted data, and deletes it if a problem occurs
             try {
                 this.expenseList = JSON.parse(localStorage.getItem('savedList'));
             } catch (e) {
@@ -70,6 +73,7 @@ Vue.createApp({
 
             this.sortHandler();
             this.monthDiagram();
+            this.findYears();
         },
         deleteExpense(index) {
             // This updates the diagram when a expense is deleted.
@@ -120,6 +124,32 @@ Vue.createApp({
                 total += parsedAmount;
             }
             return total;
+        },
+        findYears(){
+            for (let expense of this.expenseList){
+                let dateArray = expense.date.split('-');
+                let expenseYear = dateArray[0];
+                if (!this.yearList.some(y => y['year'] === expenseYear)){
+                    let yearObject = {
+                        year: expenseYear,
+                        monthList: [
+                            { name: "Jan", amount: 0, textAmountPos: 14, },
+                            { name: "Feb", amount: 0, textAmountPos: 0, },
+                            { name: "Mar", amount: 0, textAmountPos: 14, },
+                            { name: "Apr", amount: 0, textAmountPos: 0, },
+                            { name: "May", amount: 0, textAmountPos: 14, },
+                            { name: "Jun", amount: 0, textAmountPos: 0, },
+                            { name: "Jul", amount: 0, textAmountPos: 14, },
+                            { name: "Aug", amount: 0, textAmountPos: 0, },
+                            { name: "Sep", amount: 0, textAmountPos: 14, },
+                            { name: "Oct", amount: 0, textAmountPos: 0, },
+                            { name: "Nov", amount: 0, textAmountPos: 14, },
+                            { name: "Dec", amount: 0, textAmountPos: 0, }
+                        ],
+                    }
+                    this.yearList.push(yearObject);
+                }
+            }
         },
         monthDiagram() {
             let last = 0; // This exsist so that we can get the last object in the list.
