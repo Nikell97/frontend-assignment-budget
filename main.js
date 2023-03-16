@@ -141,6 +141,7 @@ Vue.createApp({
             }
             return total;
         },
+        // detects if there is an entry in expenseList with a year that hasn't previously been entered and adds it to yearList
         findYears(){
             for (let expense of this.expenseList){
                 let dateArray = expense.date.split('-');
