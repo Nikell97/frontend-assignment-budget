@@ -43,31 +43,35 @@
                 </li>
             </ul>
 
-        <ul class="filters">
-            <li class="sortByCategory">
-                <button type="button" @click="sortByCategory" class="sortByCategoryButton">Category</button>
-            </li>
-            <li class="sortByAmount">
-                <button type="button" @click="sortByAmount" class="sortByAmountButton">Expenses</button>
-            </li>
-            <li class="sortByMonth">
-                <button type="button" @click="sortByMonth" class="sortByMonthButton">Month</button>
-            </li>
-            <li class="clearExpenseList">
-                <button type="button" @click="clearExpenseList" class="clearExpenseListButton">Clear</button>
-            </li>
-        </ul>
+            <ul class="filters">
+                <li class="sortByCategory">
+                    <button type="button" @click="sortByCategory" class="sortByCategoryButton">Category</button>
+                </li>
+                <li class="sortByAmount">
+                    <button type="button" @click="sortByAmount" class="sortByAmountButton">Expenses</button>
+                </li>
+                <li class="sortByMonth">
+                    <button type="button" @click="sortByMonth" class="sortByMonthButton">Month</button>
+                </li>
+                <li class="clearExpenseList">
+                    <button type="button" @click="clearExpenseList" class="clearExpenseListButton">Clear</button>
+                </li>
+            </ul>
 
-        <p id="TotalExpenses"> Total Expense: {{ calcTotalExpense() }}kr</p>
-        <select id="yearDropDown" @change="currentYearListChange($event)">
-            <option v-for="(year, index) in yearList" :key="index">{{ year.year }}</option> 
-        </select> 
+            <div>
+                <p id="TotalExpenses"> Total Expense: {{ calcTotalExpense() }}kr</p>
+                <select id="yearDropDown" @change="currentYearListChange($event)">
+                    <option v-for="(year, index) in yearList" :key="index">{{ year.year }}</option>
+                </select>
+                <button type="button" @click="addData" class="addDataButton">Add Preset Data</button>
+            </div>
 
         </div>
         <div>
             <svg><!--498px X 348px average space would be 41.5px-->
                 <g v-for="(monthList, index) in currMonthList" :key="index">
-                    <rect :x="5 + index * 41.5" :y="318 - monthList.amount / 100" width="30" :height="monthList.amount / 100"/>
+                    <rect :x="5 + index * 41.5" :y="318 - monthList.amount / 100" width="30"
+                        :height="monthList.amount / 100" />
                     <text :x="5 + index * 41.5" :y="308 - monthList.amount / 100">{{ monthList.name }}</text>
                     <text :x="5 + index * 41.5" :y="345 - monthList.textAmountPos">{{ monthList.amount }}</text>
                 </g>

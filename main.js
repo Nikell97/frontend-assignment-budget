@@ -11,7 +11,7 @@ Vue.createApp({
             dateText: "",
             showEmptyFieldsPopup: false,
 
-            monthList: [
+            universalMonthList: [
                 { name: "Jan", amount: 0, textAmountPos: 14, },
                 { name: "Feb", amount: 0, textAmountPos: 0, },
                 { name: "Mar", amount: 0, textAmountPos: 14, },
@@ -84,6 +84,8 @@ Vue.createApp({
                 this.updateDiagram(expenseMonth, parsedAmount, this.currentYearListIndex)
             }
             this.sortHandler();
+            this.currentYearListIndex = 0;
+            this.updateDiagram(0, 0, this.currentYearListIndex)
         }
     },
     methods: {
@@ -91,6 +93,33 @@ Vue.createApp({
         saveInLocal() {
             const parsedList = JSON.stringify(this.expenseList);
             localStorage.setItem('savedList', parsedList)
+        },
+        addData() {
+            //Push data into the site with a button press.
+            const data = [
+                { category: "Bread", amount: 2000, date: "2023-01-15" },
+                { category: "Cookies", amount: 5000, date: "2023-02-15" },
+                { category: "Tea", amount: 3000, date: "2023-05-15" },
+                { category: "Book", amount: 2500, date: "2022-10-15" },
+                { category: "Pencile", amount: 1600, date: "2020-08-15" },
+                { category: "Paper", amount: 1300, date: "2020-06-15" },
+                { category: "Comic sans rights", amount: 200000, date: "2021-07-15" },
+            ]
+            for (const dataOBJ of data) {
+                let expenseObject = {
+                    category: dataOBJ.category,
+                    amount: dataOBJ.amount,
+                    date: dataOBJ.date
+                };
+                this.expenseList.push(expenseObject);
+                this.saveInLocal();
+
+                this.sortHandler();
+                this.findYears();
+                this.monthDiagram(expenseObject);
+            }
+            this.currentYearListIndex = 0;
+            this.updateDiagram(0, 0, this.currentYearListIndex)
         },
         addExpense() {
             if (this.categoryText == "" || this.amountText == "" || this.dateText == "") {
@@ -110,7 +139,7 @@ Vue.createApp({
             this.sortHandler();
             this.findYears();
             this.monthDiagram(expenseObject);
-            
+
             this.categoryText = "";
             this.amountText = "";
             this.dateText = "";
@@ -119,7 +148,7 @@ Vue.createApp({
             // This updates the diagram when a expense is deleted.
             let date = this.expenseList[index].date.split("-");
             let monthIndex = parseInt(date[1] - 1);
-            this.monthList[monthIndex].amount -= (this.expenseList[index].amount);
+            this.universalMonthList[monthIndex].amount -= (this.expenseList[index].amount);
 
             this.expenseList.splice(index, 1);
             this.saveInLocal();
@@ -151,8 +180,8 @@ Vue.createApp({
             this.activeTab = "month";
         },
         clearExpenseList() {
-            for (let i = 0; i < this.monthList.length; i++) {
-                this.monthList[i].amount = 0;
+            for (let i = 0; i < this.universalMonthList.length; i++) {
+                this.universalMonthList[i].amount = 0;
             }
 
             this.yearList.splice(1) // Empties the drop down box except the "all" option.
@@ -213,66 +242,99 @@ Vue.createApp({
         updateDiagram(expenseMonth, parsedAmount, yearListIndex) {
             // When switching tabs, the current shown diagram is differant. But the "amount" does not get put on the right year. 
             // Should be put in "All" and their own respectiv year.
+            // The if statement descides if the current diagram shall show all the expenses or only for the selected year.
+
             if (yearListIndex === 0) {
-                this.currMonthList = this.monthList;
+                //This for loop blocks a bug where data is added to the universalMonthList when there shouldent by zeroing all the "amount"s in it.
+                for (let i = 0; i < this.universalMonthList.length; i++) {
+                    this.universalMonthList[i].amount = 0;
+                }
+                this.currMonthList = this.universalMonthList;
+                
+                for (const yearOBJ of this.yearList) {
+                    if (yearOBJ.year === "All") {}
+                    else {      
+                        for (const monthOBJ of yearOBJ.monthList) {
+                            if (monthOBJ.name === "Jan") {
+                                this.currMonthList[0].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "Feb") {
+                                this.currMonthList[1].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "Mar") {
+                                this.currMonthList[2].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "Apr") {
+                                this.currMonthList[3].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "May") {
+                                this.currMonthList[4].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "Jun") {
+                                this.currMonthList[5].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "Jul") {
+                                this.currMonthList[6].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "Aug") {
+                                this.currMonthList[7].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "Sep") {
+                                this.currMonthList[8].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "Oct") {
+                                this.currMonthList[9].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "Nov") {
+                                this.currMonthList[10].amount += monthOBJ.amount;
+                            }
+                            else if (monthOBJ.name === "Dec") {
+                                this.currMonthList[11].amount += monthOBJ.amount;
+                            }
+                        }
+                    }
+                }
             }
             else {
                 this.currMonthList = this.yearList[yearListIndex].monthList;
-            }
 
-            if (expenseMonth === "01") {
-                this.currMonthList[0].amount += parsedAmount;
-                this.monthList[0].amount += parsedAmount;
-            }
-            else if (expenseMonth === "02") {
-                this.currMonthList[1].amount += parsedAmount;
-                this.monthList[1].amount += parsedAmount;
-            }
-            else if (expenseMonth === "03") {
-                this.currMonthList[2].amount += parsedAmount;
-                this.monthList[2].amount += parsedAmount;
-            }
-            else if (expenseMonth === "04") {
-                this.currMonthList[3].amount += parsedAmount;
-                this.monthList[3].amount += parsedAmount;
-            }
-            else if (expenseMonth === "05") {
-                this.currMonthList[4].amount += parsedAmount;
-                this.monthList[4].amount += parsedAmount;
-            }
-            else if (expenseMonth === "06") {
-                this.currMonthList[5].amount += parsedAmount;
-                this.monthList[5].amount += parsedAmount;
-            }
-            else if (expenseMonth === "07") {
-                this.currMonthList[6].amount += parsedAmount;
-                this.monthList[6].amount += parsedAmount;
-            }
-            else if (expenseMonth === "08") {
-                this.currMonthList[7].amount += parsedAmount;
-                this.monthList[7].amount += parsedAmount;
-            }
-            else if (expenseMonth === "09") {
-                this.currMonthList[8].amount += parsedAmount;
-                this.monthList[8].amount += parsedAmount;
-            }
-            else if (expenseMonth === "10") {
-                this.currMonthList[9].amount += parsedAmount;
-                this.monthList[9].amount += parsedAmount;
-            }
-            else if (expenseMonth === "11") {
-                this.currMonthList[10].amount += parsedAmount
-                this.monthList[10].amount += parsedAmount;
-            }
-            else if (expenseMonth === "12") {
-                this.currMonthList[11].amount += parsedAmount
-                this.monthList[11].amount += parsedAmount;
-            }
+                if (expenseMonth === "01") {
+                    this.currMonthList[0].amount += parsedAmount;
+                }
+                else if (expenseMonth === "02") {
+                    this.currMonthList[1].amount += parsedAmount;
+                }
+                else if (expenseMonth === "03") {
+                    this.currMonthList[2].amount += parsedAmount;
+                }
+                else if (expenseMonth === "04") {
+                    this.currMonthList[3].amount += parsedAmount;
+                }
+                else if (expenseMonth === "05") {
+                    this.currMonthList[4].amount += parsedAmount;
+                }
+                else if (expenseMonth === "06") {
+                    this.currMonthList[5].amount += parsedAmount;
+                }
+                else if (expenseMonth === "07") {
+                    this.currMonthList[6].amount += parsedAmount;
+                }
+                else if (expenseMonth === "08") {
+                    this.currMonthList[7].amount += parsedAmount;
+                }
+                else if (expenseMonth === "09") {
+                    this.currMonthList[8].amount += parsedAmount;
+                }
+                else if (expenseMonth === "10") {
+                    this.currMonthList[9].amount += parsedAmount;
+                }
+                else if (expenseMonth === "11") {
+                    this.currMonthList[10].amount += parsedAmount;
+                }
+                else if (expenseMonth === "12") {
+                    this.currMonthList[11].amount += parsedAmount;
+                }
 
-            if (yearListIndex === 0) {
-                this.monthList = this.currMonthList;
-            }
-            else {
                 this.yearList[yearListIndex].monthList = this.currMonthList;
             }
         },
