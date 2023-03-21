@@ -15,20 +15,8 @@ Vue.createApp({
 
             selectedYearIndex: 0,
 
-            universalMonthList: [
-                { name: "Jan", amount: 0, textAmountPos: 14, },
-                { name: "Feb", amount: 0, textAmountPos: 0, },
-                { name: "Mar", amount: 0, textAmountPos: 14, },
-                { name: "Apr", amount: 0, textAmountPos: 0, },
-                { name: "May", amount: 0, textAmountPos: 14, },
-                { name: "Jun", amount: 0, textAmountPos: 0, },
-                { name: "Jul", amount: 0, textAmountPos: 14, },
-                { name: "Aug", amount: 0, textAmountPos: 0, },
-                { name: "Sep", amount: 0, textAmountPos: 14, },
-                { name: "Oct", amount: 0, textAmountPos: 0, },
-                { name: "Nov", amount: 0, textAmountPos: 14, },
-                { name: "Dec", amount: 0, textAmountPos: 0, }
-            ],
+            universalMonthList: [],
+            currentMonthList: [],
 
             yearList: [
                 {
@@ -47,21 +35,6 @@ Vue.createApp({
                         { name: "Dec", amount: 0, textAmountPos: 0, }
                     ]
                 }],
-
-            currentMonthList: [
-                { name: "Jan", amount: 0, textAmountPos: 14, },
-                { name: "Feb", amount: 0, textAmountPos: 0, },
-                { name: "Mar", amount: 0, textAmountPos: 14, },
-                { name: "Apr", amount: 0, textAmountPos: 0, },
-                { name: "May", amount: 0, textAmountPos: 14, },
-                { name: "Jun", amount: 0, textAmountPos: 0, },
-                { name: "Jul", amount: 0, textAmountPos: 14, },
-                { name: "Aug", amount: 0, textAmountPos: 0, },
-                { name: "Sep", amount: 0, textAmountPos: 14, },
-                { name: "Oct", amount: 0, textAmountPos: 0, },
-                { name: "Nov", amount: 0, textAmountPos: 14, },
-                { name: "Dec", amount: 0, textAmountPos: 0, }
-            ],
 
         }
     },
@@ -157,6 +130,23 @@ Vue.createApp({
 
             this.expenseList.splice(index, 1);
             this.saveInLocal();
+        },
+        createMonthListTemplate(){
+            let monthList = [
+                { name: "Jan", amount: 0, textAmountPos: 14, },
+                { name: "Feb", amount: 0, textAmountPos: 0, },
+                { name: "Mar", amount: 0, textAmountPos: 14, },
+                { name: "Apr", amount: 0, textAmountPos: 0, },
+                { name: "May", amount: 0, textAmountPos: 14, },
+                { name: "Jun", amount: 0, textAmountPos: 0, },
+                { name: "Jul", amount: 0, textAmountPos: 14, },
+                { name: "Aug", amount: 0, textAmountPos: 0, },
+                { name: "Sep", amount: 0, textAmountPos: 14, },
+                { name: "Oct", amount: 0, textAmountPos: 0, },
+                { name: "Nov", amount: 0, textAmountPos: 14, },
+                { name: "Dec", amount: 0, textAmountPos: 0, }
+            ]
+            return monthList;
         },
         // activates relevant sort function when activeTab, the variable that tracks how the list is sorted, is changed
         sortHandler() {
@@ -270,6 +260,8 @@ Vue.createApp({
 
             if (yearListIndex === 0) {
                 //This for loop blocks a bug where data is added to the universalMonthList when there shouldent by zeroing all the "amount"s in it.
+                this.universalMonthList = this.createMonthListTemplate();
+                this.currentMonthList = this.createMonthListTemplate();
                 for (let i = 0; i < this.universalMonthList.length; i++) {
                     this.universalMonthList[i].amount = 0;
                 }
