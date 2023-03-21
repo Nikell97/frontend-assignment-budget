@@ -22,7 +22,7 @@
             </div>
 
             <form id="input" @submit.prevent="addExpense">
-                <input id="categoryInput" pattern="[A-Za-z]+" v-model="categoryText" placeholder="Enter category here"
+                <input id="categoryInput" pattern="[A-Za-z ]+" v-model="categoryText" placeholder="Enter category here"
                     title="Please enter letters only">
                 <input id="amountInput" pattern="\d+" v-model="amountText" placeholder="Enter amount here"
                     title="Please enter numbers only">
