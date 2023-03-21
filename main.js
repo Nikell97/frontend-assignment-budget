@@ -100,7 +100,7 @@ Vue.createApp({
         addData() {
             //Push data into the site with a button press.
             const data = [
-                { category: "Bread", amount: 2000, date: "2023-01-15", hidden: false},
+                { category: "Bread", amount: 2000, date: "2023-01-15", hidden: false },
                 { category: "Cookies", amount: 5000, date: "2023-02-15", hidden: false },
                 { category: "Tea", amount: 3000, date: "2023-05-15", hidden: false },
                 { category: "Book", amount: 2500, date: "2022-10-15", hidden: false },
@@ -237,16 +237,16 @@ Vue.createApp({
         // filters the displayed list of expenses by the year currently chosen in the drop down menu
         // uses the dynamic class feature in Vue to add a class to an object based on a condition, in this case whether hidden is true or false
         // class is then hidden by setting display: none in CSS
-        filterByYear(){
-            for (expense of this.expenseList){
-                let expenseDate = expense.date.split('-'); 
-                let expenseYear = expenseDate[0]; 
+        filterByYear() {
+            for (expense of this.expenseList) {
+                let expenseDate = expense.date.split('-');
+                let expenseYear = expenseDate[0];
                 let viewedDate = this.yearList[this.currentYearListIndex].year.split('-');
                 let viewedYear = viewedDate[0];
                 if (this.currentYearListIndex === 0) { // currentYearListIndex 0 is All in dropdown list
                     expense.hidden = false;
                 }
-                else if (expenseYear === viewedYear){
+                else if (expenseYear === viewedYear) {
                     expense.hidden = false;
                 }
                 else {
@@ -274,14 +274,19 @@ Vue.createApp({
                     this.universalMonthList[i].amount = 0;
                 }
                 this.currentMonthList = this.universalMonthList;
-                
+
                 //Goes through all the amounts in every month object in year objects in the year list and combines them.
+                // Loop through each year object in yearList
                 for (const yearOBJ of this.yearList) {
-                    if (yearOBJ.year === "All") {}
-                    else {      
+                    // Check if the current year is "All"
+                    if (yearOBJ.year != "All") {
+                        // Loop through each month object in the current year's monthList
                         for (const monthOBJ of yearOBJ.monthList) {
+                            // Get the index of the current month in the monthIndex array
                             const monthIndex = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].indexOf(monthOBJ.name);
+                            // If the month is found in the monthIndex array
                             if (monthIndex >= 0) {
+                                // Add the current month's amount to the corresponding element in currentMonthList
                                 this.currentMonthList[monthIndex].amount += monthOBJ.amount;
                             }
                         }
@@ -291,13 +296,13 @@ Vue.createApp({
             //Adds the amounts to their respective years.
             else {
                 this.currentMonthList = this.yearList[yearListIndex].monthList;
-                
+
                 //Zero is used to update which list to show in the diagram.
                 if (expenseMonth != 0) {
                     const i = parseInt(expenseMonth) - 1; // Subtract 1 from the month number to get the zero-based index
                     this.currentMonthList[i].amount += parsedAmount;
                 }
-                
+
                 this.yearList[yearListIndex].monthList = this.currentMonthList;
             }
             if (updateDiagramAfterYear) {
