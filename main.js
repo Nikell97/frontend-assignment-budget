@@ -251,6 +251,7 @@ Vue.createApp({
                 }
                 this.currMonthList = this.universalMonthList;
                 
+                //Goes through all the amounts in every month object in year objects in the year list and combines them.
                 for (const yearOBJ of this.yearList) {
                     if (yearOBJ.year === "All") {}
                     else {      
@@ -295,6 +296,7 @@ Vue.createApp({
                     }
                 }
             }
+            //Adds the amounts to their respective years.
             else {
                 this.currMonthList = this.yearList[yearListIndex].monthList;
 
@@ -334,7 +336,7 @@ Vue.createApp({
                 else if (expenseMonth === "12") {
                     this.currMonthList[11].amount += parsedAmount;
                 }
-
+                
                 this.yearList[yearListIndex].monthList = this.currMonthList;
             }
         },
