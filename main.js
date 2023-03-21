@@ -48,7 +48,7 @@ Vue.createApp({
                     ]
                 }],
 
-            currMonthList: [
+            currentMonthList: [
                 { name: "Jan", amount: 0, textAmountPos: 14, },
                 { name: "Feb", amount: 0, textAmountPos: 0, },
                 { name: "Mar", amount: 0, textAmountPos: 14, },
@@ -71,7 +71,7 @@ Vue.createApp({
             try {
                 this.expenseList = JSON.parse(localStorage.getItem('savedList'));
             } catch (e) {
-                localStorage.deleteExpense('savedList');
+                localStorage.deleteItem('savedList');
             }
 
             for (let expenseListItem of this.expenseList) {
@@ -273,48 +273,16 @@ Vue.createApp({
                 for (let i = 0; i < this.universalMonthList.length; i++) {
                     this.universalMonthList[i].amount = 0;
                 }
-                this.currMonthList = this.universalMonthList;
+                this.currentMonthList = this.universalMonthList;
                 
                 //Goes through all the amounts in every month object in year objects in the year list and combines them.
                 for (const yearOBJ of this.yearList) {
                     if (yearOBJ.year === "All") {}
                     else {      
                         for (const monthOBJ of yearOBJ.monthList) {
-                            if (monthOBJ.name === "Jan") {
-                                this.currMonthList[0].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "Feb") {
-                                this.currMonthList[1].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "Mar") {
-                                this.currMonthList[2].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "Apr") {
-                                this.currMonthList[3].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "May") {
-                                this.currMonthList[4].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "Jun") {
-                                this.currMonthList[5].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "Jul") {
-                                this.currMonthList[6].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "Aug") {
-                                this.currMonthList[7].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "Sep") {
-                                this.currMonthList[8].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "Oct") {
-                                this.currMonthList[9].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "Nov") {
-                                this.currMonthList[10].amount += monthOBJ.amount;
-                            }
-                            else if (monthOBJ.name === "Dec") {
-                                this.currMonthList[11].amount += monthOBJ.amount;
+                            const monthIndex = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].indexOf(monthOBJ.name);
+                            if (monthIndex >= 0) {
+                                this.currentMonthList[monthIndex].amount += monthOBJ.amount;
                             }
                         }
                     }
@@ -322,46 +290,15 @@ Vue.createApp({
             }
             //Adds the amounts to their respective years.
             else {
-                this.currMonthList = this.yearList[yearListIndex].monthList;
-
-                if (expenseMonth === "01") {
-                    this.currMonthList[0].amount += parsedAmount;
-                }
-                else if (expenseMonth === "02") {
-                    this.currMonthList[1].amount += parsedAmount;
-                }
-                else if (expenseMonth === "03") {
-                    this.currMonthList[2].amount += parsedAmount;
-                }
-                else if (expenseMonth === "04") {
-                    this.currMonthList[3].amount += parsedAmount;
-                }
-                else if (expenseMonth === "05") {
-                    this.currMonthList[4].amount += parsedAmount;
-                }
-                else if (expenseMonth === "06") {
-                    this.currMonthList[5].amount += parsedAmount;
-                }
-                else if (expenseMonth === "07") {
-                    this.currMonthList[6].amount += parsedAmount;
-                }
-                else if (expenseMonth === "08") {
-                    this.currMonthList[7].amount += parsedAmount;
-                }
-                else if (expenseMonth === "09") {
-                    this.currMonthList[8].amount += parsedAmount;
-                }
-                else if (expenseMonth === "10") {
-                    this.currMonthList[9].amount += parsedAmount;
-                }
-                else if (expenseMonth === "11") {
-                    this.currMonthList[10].amount += parsedAmount;
-                }
-                else if (expenseMonth === "12") {
-                    this.currMonthList[11].amount += parsedAmount;
+                this.currentMonthList = this.yearList[yearListIndex].monthList;
+                
+                //Zero is used to update which list to show in the diagram.
+                if (expenseMonth != 0) {
+                    const i = parseInt(expenseMonth) - 1; // Subtract 1 from the month number to get the zero-based index
+                    this.currentMonthList[i].amount += parsedAmount;
                 }
                 
-                this.yearList[yearListIndex].monthList = this.currMonthList;
+                this.yearList[yearListIndex].monthList = this.currentMonthList;
             }
             if (updateDiagramAfterYear) {
                 this.updateDiagram(0, 0, this.currentYearListIndex, false)
