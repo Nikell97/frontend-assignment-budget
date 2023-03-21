@@ -144,7 +144,52 @@ svg {
 .sortByCategoryButton:hover, .sortByAmountButton:hover, .sortByMonthButton:hover, .clearExpenseListButton:hover {
     cursor: pointer;
 }
-
 .hidden{
     display: none;
+}
+
+#yearDropDown, .addDataButton {
+    border-radius: 0px;
+}
+
+.diagramOptionsAndData {
+    margin-top: 25px;
+}
+
+#TotalExpenses {
+    display: inline-block;
+    height: 21px;
+
+    margin: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    border: 1px;
+    border-bottom: 0px;
+    border-color: grey;
+    border-style: solid;
+}
+
+.monthNamesList {
+    width: 492px;
+    margin: 0px;
+    padding-left: 6px;
+
+    border: 1px;
+    border-bottom: 0px;
+    border-color: grey;
+    border-style: solid;
+}
+
+.monthNames {
+    display: inline-block;
+
+    margin: 0px;
+
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+#yearDropDown:hover, .addDataButton:hover {
+    cursor: pointer;
 }

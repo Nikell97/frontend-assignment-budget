@@ -58,12 +58,29 @@
                 </li>
             </ul>
 
-            <div>
-                <p id="TotalExpenses"> Total Expense: {{ calcTotalExpense() }}kr</p>
+            <div class="diagramOptionsAndData">
                 <select id="yearDropDown" @change="currentYearListChange($event)">
                     <option v-for="(year, index) in yearList" :key="index">{{ year.year }}</option>
                 </select>
                 <button type="button" @click="addData" class="addDataButton">Add Preset Data</button>
+                <p id="TotalExpenses"> Total Expense: {{ calcTotalExpense() }}kr</p>
+            </div>
+
+            <div>
+                <ul class="monthNamesList">
+                    <p class="monthNames">Jan</p>
+                    <p class="monthNames">Feb</p>
+                    <p class="monthNames">Mar</p>
+                    <p class="monthNames">Apr</p>
+                    <p class="monthNames">May</p>
+                    <p class="monthNames">Jun</p>
+                    <p class="monthNames">Jul</p>
+                    <p class="monthNames">Aug</p>
+                    <p class="monthNames">Sep</p>
+                    <p class="monthNames">Oct</p>
+                    <p class="monthNames">Nov</p>
+                    <p class="monthNames">Dec</p>
+                </ul>
             </div>
 
         </div>
@@ -73,7 +90,7 @@
                     <rect :x="5 + index * 41.5" :y="318 - monthList.amount / 100" width="30"
                         :height="monthList.amount / 100" />
                     <text :x="5 + index * 41.5" :y="308 - monthList.amount / 100">{{ monthList.name }}</text>
-                    <text :x="5 + index * 41.5" :y="345 - monthList.textAmountPos">{{ monthList.amount }}</text>
+                    <text :x="5 + index * 41.5" :y="345 - monthList.textAmountPos">{{ monthList.amount }}kr</text>
                 </g>
             </svg>
         </div>
