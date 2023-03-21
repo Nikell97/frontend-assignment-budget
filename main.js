@@ -11,6 +11,10 @@ Vue.createApp({
             dateText: "",
             showEmptyFieldsPopup: false,
 
+            updateDiagramAfterYear: false,
+
+            selectedYearIndex: 0,
+
             universalMonthList: [
                 { name: "Jan", amount: 0, textAmountPos: 14, },
                 { name: "Feb", amount: 0, textAmountPos: 0, },
@@ -81,11 +85,11 @@ Vue.createApp({
                 const index = this.yearList.findIndex(item => item.year === expenseYear);
                 this.currentYearListIndex = index;
 
-                this.updateDiagram(expenseMonth, parsedAmount, this.currentYearListIndex)
+                this.updateDiagram(expenseMonth, parsedAmount, this.currentYearListIndex, true)
             }
             this.sortHandler();
             this.currentYearListIndex = 0;
-            this.updateDiagram(0, 0, this.currentYearListIndex)
+            this.updateDiagram(0, 0, this.currentYearListIndex, true)
         }
     },
     methods: {
@@ -120,7 +124,7 @@ Vue.createApp({
                 this.monthDiagram(expenseObject);
             }
             this.currentYearListIndex = 0;
-            this.updateDiagram(0, 0, this.currentYearListIndex)
+            this.updateDiagram(0, 0, this.currentYearListIndex, true)
         },
         addExpense() {
             if (this.categoryText == "" || this.amountText == "" || this.dateText == "") {
@@ -227,7 +231,7 @@ Vue.createApp({
         },
         currentYearListChange(event) {
             this.currentYearListIndex = event.target.selectedIndex;
-            this.updateDiagram(0, 0, this.currentYearListIndex);
+            this.updateDiagram(0, 0, this.currentYearListIndex, true);
             this.filterByYear();
         },
         filterByYear(){
@@ -256,10 +260,10 @@ Vue.createApp({
             const index = this.yearList.findIndex(item => item.year === expenseYear);
             this.currentYearListIndex = index;
 
-            this.updateDiagram(expenseMonth, parsedAmount, 0) // This is to add the expense to the "All" category.
-            this.updateDiagram(expenseMonth, parsedAmount, this.currentYearListIndex)
+            this.updateDiagram(expenseMonth, parsedAmount, 0, true) // This is to add the expense to the "All" category.
+            this.updateDiagram(expenseMonth, parsedAmount, this.currentYearListIndex, true)
         },
-        updateDiagram(expenseMonth, parsedAmount, yearListIndex) {
+        updateDiagram(expenseMonth, parsedAmount, yearListIndex, updateDiagramAfterYear) {
             // When switching tabs, the current shown diagram is differant. But the "amount" does not get put on the right year. 
             // Should be put in "All" and their own respectiv year.
             // The if statement descides if the current diagram shall show all the expenses or only for the selected year.
@@ -358,6 +362,11 @@ Vue.createApp({
                 }
                 
                 this.yearList[yearListIndex].monthList = this.currMonthList;
+            }
+            if (updateDiagramAfterYear) {
+                this.updateDiagram(0, 0, this.currentYearListIndex, false)
+                this.filterByYear();
+                this.selectedYearIndex = this.currentYearListIndex;
             }
         },
     }
