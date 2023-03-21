@@ -97,19 +97,20 @@ Vue.createApp({
         addData() {
             //Push data into the site with a button press.
             const data = [
-                { category: "Bread", amount: 2000, date: "2023-01-15" },
-                { category: "Cookies", amount: 5000, date: "2023-02-15" },
-                { category: "Tea", amount: 3000, date: "2023-05-15" },
-                { category: "Book", amount: 2500, date: "2022-10-15" },
-                { category: "Pencile", amount: 1600, date: "2020-08-15" },
-                { category: "Paper", amount: 1300, date: "2020-06-15" },
-                { category: "Comic sans rights", amount: 200000, date: "2021-07-15" },
+                { category: "Bread", amount: 2000, date: "2023-01-15", hidden: false},
+                { category: "Cookies", amount: 5000, date: "2023-02-15", hidden: false },
+                { category: "Tea", amount: 3000, date: "2023-05-15", hidden: false },
+                { category: "Book", amount: 2500, date: "2022-10-15", hidden: false },
+                { category: "Pencile", amount: 1600, date: "2020-08-15", hidden: false },
+                { category: "Paper", amount: 1300, date: "2020-06-15", hidden: false },
+                { category: "Comic sans rights", amount: 200000, date: "2021-07-15", hidden: false },
             ]
             for (const dataOBJ of data) {
                 let expenseObject = {
                     category: dataOBJ.category,
                     amount: dataOBJ.amount,
-                    date: dataOBJ.date
+                    date: dataOBJ.date,
+                    hidden: dataOBJ.hidden
                 };
                 this.expenseList.push(expenseObject);
                 this.saveInLocal();
@@ -131,7 +132,8 @@ Vue.createApp({
             let expenseObject = {
                 category: this.categoryText,
                 amount: this.amountText,
-                date: this.dateText
+                date: this.dateText,
+                hidden: false
             };
             this.expenseList.push(expenseObject);
             this.saveInLocal();
@@ -161,7 +163,7 @@ Vue.createApp({
                 this.sortByAmount();
             }
             else {
-                this.sortByMonth();
+                this.sortByDate();
             }
         },
         sortByCategory() {
@@ -174,7 +176,7 @@ Vue.createApp({
             this.expenseList.sort((e1, e2) => e1.amount < e2.amount ? 1 : -1);
             this.activeTab = "amount";
         },
-        sortByMonth() {
+        sortByDate() {
             // Add sorting logic here
             this.expenseList.sort((e1, e2) => e1.date < e2.date ? 1 : -1);
             this.activeTab = "month";
@@ -226,6 +228,24 @@ Vue.createApp({
         currentYearListChange(event) {
             this.currentYearListIndex = event.target.selectedIndex;
             this.updateDiagram(0, 0, this.currentYearListIndex);
+            this.filterByYear();
+        },
+        filterByYear(){
+            for (expense of this.expenseList){
+                let expenseDate = expense.date.split('-'); 
+                let expenseYear = expenseDate[0]; 
+                let viewedDate = this.yearList[this.currentYearListIndex].year.split('-');
+                let viewedYear = viewedDate[0];
+                if (this.currentYearListIndex === 0) { // currentYearListIndex 0 is All in dropdown list
+                    expense.hidden = false;
+                }
+                else if (expenseYear === viewedYear){
+                    expense.hidden = false;
+                }
+                else {
+                    expense.hidden = true;
+                }
+            }
         },
         monthDiagram(expenseObject) {
             let expenseDate = expenseObject.date.split('-'); // splits date string at - and puts the values in an array

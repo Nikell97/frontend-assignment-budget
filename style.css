@@ -127,11 +127,11 @@ svg {
     align-items: center;
 }
 
-.sortByCategory, .sortByAmount, .sortByMonth {
+.sortByCategory, .sortByAmount, .sortByDate {
     width: 149px;
 }
 
-.sortByCategoryButton, .sortByAmountButton, .sortByMonthButton {
+.sortByCategoryButton, .sortByAmountButton, .sortByDateButton {
     width: 149px;
     border-radius: 0px;
 }
@@ -143,4 +143,8 @@ svg {
 
 .sortByCategoryButton:hover, .sortByAmountButton:hover, .sortByMonthButton:hover, .clearExpenseListButton:hover {
     cursor: pointer;
+}
+
+.hidden{
+    display: none;
 }
