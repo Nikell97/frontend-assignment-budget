@@ -33,7 +33,7 @@
 
             <ul class="expenseList">
                 <!--Expenses go here-->
-                <li v-for="(expense, index) in expenseList" :key="index" class="expenseListItem">
+                <li v-for="(expense, index) in expenseList" :key="index" class="expenseListItem" :class="{hidden: expense.hidden}">
                     <div class="listItemCategory">{{ expense.category }}</div>
                     <div class="listItemAmount">{{ expense.amount }}kr</div>
                     <div class="listItemDate">{{ expense.date }}</div>
@@ -50,8 +50,8 @@
                 <li class="sortByAmount">
                     <button type="button" @click="sortByAmount" class="sortByAmountButton">Expenses</button>
                 </li>
-                <li class="sortByMonth">
-                    <button type="button" @click="sortByMonth" class="sortByMonthButton">Month</button>
+                <li class="sortByDate">
+                    <button type="button" @click="sortByDate" class="sortByDateButton">Date</button>
                 </li>
                 <li class="clearExpenseList">
                     <button type="button" @click="clearExpenseList" class="clearExpenseListButton">Clear</button>
