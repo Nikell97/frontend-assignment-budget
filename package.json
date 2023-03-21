@@ -1,0 +1,21 @@
+{
+  "name": "frontend-assignment-budget",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nikell97/frontend-assignment-budget.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nikell97/frontend-assignment-budget/issues"
+  },
+  "homepage": "https://github.com/Nikell97/frontend-assignment-budget#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.31.2"
+  }
+}
