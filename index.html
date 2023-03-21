@@ -14,7 +14,6 @@
 <body>
     <div id="app">
         <div>
-            <!--Vue code inside mounted "app" div-->
             <h1>Budget Calculator</h1>
 
             <div id="emptyFieldsPopup" class="popup" :class="{ show: showEmptyFieldsPopup }">
@@ -22,17 +21,19 @@
             </div>
 
             <form id="input" @submit.prevent="addExpense">
+                <!--pattern limits what kind of input that is allowed, ex. \b\d{4}-\b\d{2}-\b\d{2} limits input to yyyy-mm-dd format-->
                 <input id="categoryInput" pattern="[A-Za-z ]+" v-model="categoryText" placeholder="Enter category here"
                     title="Please enter letters only">
                 <input id="amountInput" pattern="\d+" v-model="amountText" placeholder="Enter amount here"
                     title="Please enter numbers only">
                 <input id="dateInput" pattern="\b\d{4}-\b\d{2}-\b\d{2}" v-model="dateText"
-                    placeholder="Enter date here (y-m-d)" title="Please enter numbers and hypens only">
+                    placeholder="Enter date here (yyyy-mm-dd)" title="Please enter numbers and hypens only">
                 <button type="submit" id="inputSubmitButton">Submit</button>
             </form>
 
             <ul class="expenseList">
-                <!--Expenses go here-->
+                <!--:class dynamically adds class to objects based on if hidden (a bool) is true or false-->
+                <!--it is used to filter shown expense objects based on the year-->
                 <li v-for="(expense, index) in expenseList" :key="index" class="expenseListItem" :class="{hidden: expense.hidden}">
                     <div class="listItemCategory">{{ expense.category }}</div>
                     <div class="listItemAmount">{{ expense.amount }}kr</div>

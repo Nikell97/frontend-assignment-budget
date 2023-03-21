@@ -93,7 +93,6 @@ Vue.createApp({
         }
     },
     methods: {
-        // Enter all methods/functions here
         saveInLocal() {
             const parsedList = JSON.stringify(this.expenseList);
             localStorage.setItem('savedList', parsedList)
@@ -159,6 +158,7 @@ Vue.createApp({
             this.expenseList.splice(index, 1);
             this.saveInLocal();
         },
+        // activates relevant sort function when activeTab, the variable that tracks how the list is sorted, is changed
         sortHandler() {
             if (this.activeTab == "category") {
                 this.sortByCategory();
@@ -171,17 +171,17 @@ Vue.createApp({
             }
         },
         sortByCategory() {
-            // Add sorting logic here
+            // Sorts Catagory alphabetically from A-Z
             this.expenseList.sort((e1, e2) => e1.category > e2.category ? 1 : -1);
             this.activeTab = "category";
         },
         sortByAmount() {
-            // Add sorting logic here
+            // Sorts by amount from highest to lowest
             this.expenseList.sort((e1, e2) => e1.amount < e2.amount ? 1 : -1);
             this.activeTab = "amount";
         },
         sortByDate() {
-            // Add sorting logic here
+            // Sorts by date from newest to oldest
             this.expenseList.sort((e1, e2) => e1.date < e2.date ? 1 : -1);
             this.activeTab = "month";
         },
@@ -234,6 +234,9 @@ Vue.createApp({
             this.updateDiagram(0, 0, this.currentYearListIndex, true);
             this.filterByYear();
         },
+        // filters the displayed list of expenses by the year currently chosen in the drop down menu
+        // uses the dynamic class feature in Vue to add a class to an object based on a condition, in this case whether hidden is true or false
+        // class is then hidden by setting display: none in CSS
         filterByYear(){
             for (expense of this.expenseList){
                 let expenseDate = expense.date.split('-'); 
@@ -264,9 +267,6 @@ Vue.createApp({
             this.updateDiagram(expenseMonth, parsedAmount, this.currentYearListIndex, true)
         },
         updateDiagram(expenseMonth, parsedAmount, yearListIndex, updateDiagramAfterYear) {
-            // When switching tabs, the current shown diagram is differant. But the "amount" does not get put on the right year. 
-            // Should be put in "All" and their own respectiv year.
-            // The if statement descides if the current diagram shall show all the expenses or only for the selected year.
 
             if (yearListIndex === 0) {
                 //This for loop blocks a bug where data is added to the universalMonthList when there shouldent by zeroing all the "amount"s in it.
