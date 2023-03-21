@@ -59,8 +59,8 @@
             </ul>
 
             <div class="diagramOptionsAndData">
-                <select id="yearDropDown" @change="currentYearListChange($event)">
-                    <option v-for="(year, index) in yearList" :key="index">{{ year.year }}</option>
+                <select v-model="selectedYearIndex" id="yearDropDown" @change="currentYearListChange($event)">
+                    <option v-for="(year, index) in yearList" :value="index">{{ year.year }}</option>
                 </select>
                 <button type="button" @click="addData" class="addDataButton">Add Preset Data</button>
                 <p id="TotalExpenses"> Total Expense: {{ calcTotalExpense() }}kr</p>
