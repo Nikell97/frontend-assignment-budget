@@ -84,7 +84,7 @@
             </div>
 
         </div>
-        <div>
+        <div class="diagramBody">
             <svg><!--498px X 348px average space would be 41.5px-->
                 <g v-for="(monthList, index) in currMonthList" :key="index">
                     <rect :x="5 + index * 41.5" :y="318 - monthList.amount / 100" width="30"

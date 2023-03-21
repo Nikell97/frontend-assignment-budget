@@ -125,6 +125,7 @@ svg {
 
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .sortByCategory, .sortByAmount, .sortByMonth {
@@ -191,3 +192,73 @@ svg {
     cursor: pointer;
 }
 
+@media (max-width: 514px){
+    #inputSubmitButton {
+        width: 149px;
+    }
+
+    .listItemCategory,
+    .listItemAmount,
+    .listItemDate {
+        width: 148px;
+        height: 40px;
+
+        font-size: 17px;
+
+        border-left: 0px;
+        border-top: 1px;
+        border-bottom: 1px;
+        border-right: 1px;
+
+        border-color: grey;
+        border-style: solid;
+    }
+    .listItemCategory {
+        border-left: 1px;
+    
+        border-color: grey;
+        border-style: solid;
+    }
+    .listItemDelete {
+        border-left: 0px;
+        border-top: 1px;
+        border-bottom: 1px;
+        border-right: 1px;
+    
+        border-color: grey;
+        border-style: solid;
+    }
+    .listItemDeleteButton {
+        width: 51px;
+        height: 40px;
+    
+        padding: 0px;
+        border: 0px;
+        opacity: 50%;
+    
+        background-color: transparent;
+    }
+
+    .clearExpenseListButton {
+        width: 149px;
+    }
+    
+    .diagramOptionsAndData {
+        margin-top: 10px;
+    }
+    #yearDropDown, .addDataButton {
+        width: 149px;
+    }
+    #TotalExpenses {
+        height: 20px;
+        width: 286px;
+
+        border: 1px;
+        border-color: grey;
+        border-style: solid;
+    }
+
+    .diagramBody, .monthNamesList {
+        display: none;
+    }
+}
