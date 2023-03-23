@@ -22,6 +22,7 @@
 
             <form id="input" @submit.prevent="addExpense">
                 <!--pattern limits what kind of input that is allowed, ex. \b\d{4}-\b\d{2}-\b\d{2} limits input to yyyy-mm-dd format-->
+                <!--Note that [A-Za-z ]+ doesn't allow special characters, such as å,ä,ö, etc.-->
                 <input id="categoryInput" pattern="[A-Za-z ]+" v-model="categoryText" placeholder="Enter category here"
                     title="Please enter letters only">
                 <input id="amountInput" pattern="\d+" v-model="amountText" placeholder="Enter amount here"

@@ -72,6 +72,7 @@ Vue.createApp({
         },
         addData() {
             //Push data into the site with a button press.
+            //Used to quickly add a set of data for the purpose of testing the program.
             const data = [
                 { category: "Bread", amount: 2000, date: "2023-01-15", hidden: false },
                 { category: "Cookies", amount: 5000, date: "2023-02-15", hidden: false },
