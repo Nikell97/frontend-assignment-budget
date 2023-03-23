@@ -1,3 +1,9 @@
+body {
+    background-color:beige;
+    display: flex;
+    justify-content: center;
+}
+
 li {
     list-style: none;
 }
@@ -196,6 +202,10 @@ svg {
 }
 
 @media (max-width: 514px){
+    body {
+        display: inline;
+    }
+    
     #inputSubmitButton {
         width: 149px;
     }
