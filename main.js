@@ -198,6 +198,7 @@ Vue.createApp({
             for (let expense of this.expenseList) {
                 let dateArray = expense.date.split('-');
                 let expenseYear = dateArray[0];
+                //compares expenseYear with the years found in yearList, if no similar value is found it creates a new yearObject and pushes it to the yearList
                 if (!this.yearList.some(y => y['year'] === expenseYear)) {
                     let yearObject = {
                         year: expenseYear,
